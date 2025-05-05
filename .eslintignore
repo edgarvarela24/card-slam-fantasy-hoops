@@ -1,0 +1,16 @@
+# Ignore Yarn files
+.yarn/
+.pnp.*
+
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Generated files
+coverage/
+
+# Yarn SDK files
+.yarn/sdks/

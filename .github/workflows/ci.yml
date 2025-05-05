@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --immutable
+    
+    - name: Lint code
+      run: yarn lint
+    
+    - name: Check formatting
+      run: yarn format:check
+    
+    - name: Run tests
+      run: yarn test
+    
+    - name: Type check
+      run: tsc -b
+    
+    - name: Build
+      run: yarn build
+
+  deploy-preview:
+    needs: test
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --immutable
+    
+    - name: Build
+      run: yarn build
+    
+    # Here you would add steps to deploy to a preview environment
+    # For example, using Firebase Hosting preview channels
+    - name: Deploy to preview
+      run: echo "Deploying to preview environment - This is a placeholder"
+      # In a real setup, you'd use something like:
+      # - uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
+      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+      #     projectId: your-project-id
+      #     channelId: pr-${{ github.event.pull_request.number }}
+
+  deploy:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --immutable
+    
+    - name: Build
+      run: yarn build
+    
+    # Here you would add steps to deploy to production
+    # For example, using Firebase Hosting
+    - name: Deploy to production
+      run: echo "Deploying to production - This is a placeholder"
+      # In a real setup, you'd use something like:
+      # - uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
+      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+      #     projectId: your-project-id
+      #     channelId: live
