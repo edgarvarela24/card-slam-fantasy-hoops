@@ -1,16 +1,66 @@
 # Card Slam Fantasy Hoops
 
+<!-- START CLAUDE REFERENCE -->
+<!-- This section contains important information for Claude to reference when helping with this project -->
+
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Getting Started](#getting-started)
+3. [Development Workflow](#development-workflow)
+4. [Firebase Implementation](#firebase-implementation)
+5. [Project Roadmap](#project-roadmap)
+6. [Architecture](#architecture)
+7. [Testing Strategy](#testing-strategy)
+8. [UI Design System](#ui-design-system)
+9. [Contribution Guidelines](#contribution-guidelines)
+10. [Troubleshooting](#troubleshooting)
+
 ## Project Overview
-A modern, addictive fantasy basketball game with collectible player cards and real-time updates.
+Card Slam Fantasy Hoops is a modern, addictive fantasy basketball game with collectible player cards and real-time updates.
 
-## Development Philosophy
-- Test-Driven Development (TDD): Write tests first, then implement features
-- Clean, minimal code with limited comments
-- Follow SOLID, DRY, and KISS principles
-- Prefer functional components with hooks
-- Use TypeScript for type safety
+### Key Features
+- Collectible NBA player cards with different rarities
+- Real-time stats updates during live games
+- Pack opening experience
+- Card crafting and trading system
+- Custom lineup creation
+- Leaderboards and player rankings
 
-## TDD Workflow
+## Getting Started
+
+### Prerequisites
+- Node.js (v16+)
+- Yarn package manager
+- Firebase account
+
+### Installation
+1. Clone the repository
+2. Run `yarn install` to install dependencies
+3. Set up your Firebase configuration (see [Firebase Setup Guide](docs/FIREBASE_SETUP_GUIDE.md))
+4. Run `yarn dev` to start development server
+
+### Environment Configuration
+The project requires the following environment variables in a `.env` file:
+```
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_FIREBASE_DATABASE_URL=your_database_url
+```
+
+## Development Workflow
+
+### Development Philosophy
+- **Test-Driven Development (TDD)**: Write tests first, then implement features
+- **Clean Code**: Minimal, readable code with limited comments
+- **SOLID, DRY, KISS**: Follow established software principles
+- **Functional React**: Prefer functional components with hooks
+- **Type Safety**: Use TypeScript throughout the codebase
+
+### TDD Workflow
 1. Write failing tests first for new functionality
 2. Implement the minimal code necessary to make tests pass
 3. Refactor while keeping tests green
@@ -18,14 +68,21 @@ A modern, addictive fantasy basketball game with collectible player cards and re
 5. Run the full test suite periodically to check for regressions
 6. Keep commits small and focused on specific features
 
-## Important Reminders
+### Code Review Guidelines
+- All code must have corresponding tests
+- Maintain TypeScript type safety (no `any` types)
+- Follow established patterns in the codebase
+- Address all ESLint warnings and errors
+- Ensure accessibility standards are met
+
+### Important Reminders
 - ✅ Check off completed items in this file after implementation
 - 🧪 Run all tests before moving to a new task to detect regressions
 - 📝 Update todo list regularly to maintain accurate project status
 
-## Common Commands
+### Common Commands
 
-### Development Commands
+#### Development Commands
 ```bash
 # Start development server
 yarn dev
@@ -37,7 +94,7 @@ yarn build
 yarn preview
 ```
 
-### Testing Commands
+#### Testing Commands
 ```bash
 # Run all tests
 yarn test
@@ -49,7 +106,7 @@ yarn test path/to/file.test.ts
 yarn test --watch
 ```
 
-### Code Quality Commands
+#### Code Quality Commands
 ```bash
 # Lint code
 yarn lint
@@ -58,19 +115,8 @@ yarn lint
 yarn format
 ```
 
-### Firebase Commands
-```bash
-# Setup Firebase configuration interactively
-yarn setup:firebase
-
-# Validate Firebase configuration
-yarn validate:firebase
-
-# Test Firebase connectivity
-yarn test:firebase
-```
-
-## Firebase Services Implementation
+## Firebase Implementation
+<!-- SECTION: FIREBASE -->
 
 ### Firebase Core Services
 
@@ -106,7 +152,19 @@ All Firebase services are tested through:
 3. **Test Firebase Script** - End-to-end testing of all Firebase services
 4. **Unit Tests** - Tests for each Firebase service implementation
 
-### For Development
+### Firebase Commands
+```bash
+# Setup Firebase configuration interactively
+yarn setup:firebase
+
+# Validate Firebase configuration
+yarn validate:firebase
+
+# Test Firebase connectivity
+yarn test:firebase
+```
+
+### Firebase Development Guidelines
 
 When working on Firebase features:
 
@@ -114,10 +172,13 @@ When working on Firebase features:
 2. Run `yarn validate:firebase` to verify config is correct
 3. Use abstraction layers in `src/firebase/` instead of directly using Firebase
 4. Test both online and offline scenarios when applicable
+5. Follow security best practices for Firestore rules
+6. Minimize database reads/writes for optimal performance
 
-## Project Checklist
+## Project Roadmap
+<!-- SECTION: ROADMAP -->
 
-### Phase 1: Project Setup & Infrastructure
+### Phase 1: Project Setup & Infrastructure ✅
 - [x] Initialize React project with TypeScript
 - [x] Set up Jest/React Testing Library
 - [x] Configure ESLint and Prettier
@@ -186,15 +247,74 @@ When working on Firebase features:
 - [ ] Configure CDN and caching
 - [ ] Create deployment pipeline
 
-## Testing Strategy
-- Unit tests for all utility functions and services
-- Component tests for UI elements
-- Integration tests for feature workflows
-- E2E tests for critical user journeys
-- Performance tests for real-time updates
+## Architecture
+<!-- SECTION: ARCHITECTURE -->
 
+### Frontend Architecture
+
+The project follows a modular architecture with clear separation of concerns:
+
+1. **Components Layer**: Reusable UI components
+   - Presentational components (cards, buttons, forms)
+   - Container components (manage state and data flow)
+
+2. **Services Layer**: Business logic and API interactions
+   - Firebase service adapters
+   - Third-party API integrations
+   - Data transformation utilities
+
+3. **Context Layer**: Global state management
+   - Authentication context
+   - User data context
+   - Collection/Game state context
+
+4. **Types Layer**: TypeScript interfaces and type definitions
+   - Shared data models
+   - API response types
+   - Component prop types
+
+### Data Flow
+
+The application follows a unidirectional data flow:
+1. User actions trigger events
+2. Events are handled by context or local state
+3. Services perform necessary data operations
+4. State updates trigger re-renders
+5. UI reflects the new state
+
+## Testing Strategy
+<!-- SECTION: TESTING -->
+
+We employ a comprehensive testing approach:
+
+- **Unit Tests**: For individual functions, hooks, and utilities
+  - Focus on pure functions and business logic
+  - High test coverage for core functionality
+
+- **Component Tests**: For UI elements using React Testing Library
+  - Test rendering, user interactions, and state changes
+  - Verify accessibility compliance
+
+- **Integration Tests**: For feature workflows
+  - Test how components work together
+  - Verify data flow through the application
+
+- **E2E Tests**: For critical user journeys
+  - Test complete user flows from end to end
+  - Verify application works as a whole
+
+- **Performance Tests**: For real-time updates
+  - Test responsiveness under load
+  - Verify real-time data synchronization
+
+### Test Coverage Targets
+- Core utilities: 95%+
+- Components: 85%+
+- Integration: 70%+
+- Overall coverage: 80%+
 
 ## UI Design System
+<!-- SECTION: UI_DESIGN -->
 
 ### Brand Identity & Design Philosophy
 - **Aesthetic**: Urban court meets digital collectibles
@@ -202,7 +322,7 @@ When working on Firebase features:
 - **Principles**: Bold typography, dynamic animations, focused information hierarchy
 - **Personality**: Contemporary, energetic, slightly irreverent
 
-### Color Palette
+### Color System
 
 #### Primary Colors
 - **Court Maple** `#FF5B2B` - Primary brand color, used for CTAs and key highlights
@@ -243,11 +363,91 @@ When working on Firebase features:
 - **Caption**: 14px/20px - Tertiary information, footnotes
 - **Small**: 12px/16px - Legal, very minor information
 
-#### Typographic Rules
-- Maintain clear hierarchy with no more than 3 levels per screen
-- Use weight (Bold, Medium, Regular) to create contrast rather than too many sizes
-- Never use below 12px font size for readability
-- Limit line length to maximum 70 characters
+### Component Library
+
+#### Card Components
+- **BaseCard**: Foundation for all card types
+  - Props: player, rarity, special abilities
+  - Variants: standard, premium, animated
+- **CardGrid**: Display multiple cards in collection view
+- **CardDetail**: Expanded view of individual card
+- **PackDisplay**: Visualize unopened card packs
+
+#### UI Components
+- **Button**: Primary, Secondary, Tertiary variants
+- **Form Elements**: Text fields, dropdowns, toggles
+- **Containers**: Panels, cards, modals
+- **Navigation**: Tabs, sidebar, bottom navigation
+- **Data Display**: Tables, charts, stat displays
+
+#### Animation System
+- **Micro-interactions**: Hover, press, focus states
+- **Transitions**: Page transitions, content loading
+- **Special Effects**: Pack opening, card flip, rarity indicators
+
+### Responsive Design System
+- **Breakpoints**: Mobile, tablet, desktop, large desktop
+- **Layout Adaptations**: Stack on mobile, side-by-side on larger screens
+- **Touch Targets**: Minimum 44px × 44px for all interactive elements
+- **Device Optimizations**: Special considerations for different devices
+
+### Accessibility Standards
+- **Color Contrast**: WCAG AA compliance (4.5:1 minimum)
+- **Keyboard Navigation**: Full functionality without mouse
+- **Screen Reader Support**: Proper ARIA labels and semantic HTML
+- **Reduced Motion**: Options for users with motion sensitivity
+
+## Contribution Guidelines
+<!-- SECTION: CONTRIBUTION -->
+
+### Commit Message Format
+- Use present tense ("Add feature" not "Added feature")
+- First line is a summary (max 50 chars)
+- Optionally provide a more detailed explanation
+- Reference issues and pull requests
+
+### Branch Naming Convention
+- Feature branches: `feature/short-description`
+- Bug fixes: `fix/issue-description`
+- Refactoring: `refactor/component-name`
+
+### Pull Request Process
+1. Update documentation reflecting changes
+2. Add tests for new functionality
+3. Ensure all tests pass
+4. Request review from at least one team member
+5. Squash commits before merging
+
+## Troubleshooting
+<!-- SECTION: TROUBLESHOOTING -->
+
+### Common Issues
+
+#### Firebase Configuration Issues
+- Verify environment variables are correctly set
+- Run `yarn validate:firebase` to check configuration
+- Check Firebase console for service availability
+
+#### Test Failures
+- Run tests with `--verbose` flag for more details
+- Check for outdated snapshots with `--updateSnapshot`
+- Verify mocks are correctly configured
+
+#### Build Problems
+- Clear node_modules and reinstall dependencies
+- Check for TypeScript errors with `tsc --noEmit`
+- Verify import paths are correct
+
+### Getting Help
+- Check existing documentation first
+- Search for similar issues in the repository
+- Ask specific questions with reproducible examples
+
+<!-- END CLAUDE REFERENCE -->
+
+<!-- The remainder of this document contains the detailed design system specifications -->
+
+## Detailed Design System
 
 ### Card Design System
 
@@ -316,7 +516,7 @@ When working on Firebase features:
 - Card skeleton screens with pulsing gradient
 - Progress indicators for pack purchases and openings
 
-### Components Library
+### Detailed Components
 
 #### Buttons
 - **Primary**: Pill shape, Court Maple background, 16px padding, 8px radius
@@ -341,55 +541,6 @@ When working on Firebase features:
 - **Performance Charts**: Line graphs with stroke highlight
 - **Comparison Radars**: Hexagonal stat comparison charts
 - **Leaderboard Tables**: Alternating row backgrounds, highlight on hover
-
-### Responsive Design Guidelines
-
-#### Breakpoints
-- **Mobile**: 320px - 767px
-- **Tablet**: 768px - 1023px
-- **Desktop**: 1024px - 1439px
-- **Large Desktop**: 1440px+
-
-#### Adaptation Principles
-- **Mobile First**: Design core experience for mobile, then enhance
-- **Card Sizing**: Relative sizing (vw-based) with min/max constraints
-- **Critical Path**: Ensure core actions require minimum steps on mobile
-- **Touch Targets**: Minimum 44px × 44px for all interactive elements
-
-#### Device-Specific Enhancements
-- **Mobile**: Focus on vertical scrolling, swipe interactions
-- **Tablet**: Two-panel layouts, split functionality
-- **Desktop**: Extended information display, keyboard shortcuts
-- **Large Displays**: Immersive visuals, expanded stats and content
-
-### Accessibility Guidelines
-
-#### Color & Contrast
-- Maintain minimum 4.5:1 contrast ratio for all text
-- Don't rely solely on color to convey information
-- Provide high contrast mode option
-
-#### Interactive Elements
-- Ensure keyboard navigability for all functions
-- Implement proper focus states (2px Court Maple outline)
-- Support screen readers with proper ARIA attributes
-
-#### Additional Considerations
-- Provide alternative text for all images and icons
-- Allow user control of animation speed/disable
-- Support text scaling up to 200% without breaking layouts
-
-### Loading & Empty States
-
-#### Loading Screens
-- Branded basketball spinner (animated basketball with trailing dots)
-- Progress indicators for multi-step processes
-- Skeleton screens matching layout of expected content
-
-#### Empty States
-- Illustrated basketball-themed graphics
-- Clear messaging explaining the empty state
-- Actionable button to resolve the empty state
 
 ### Iconography System
 
