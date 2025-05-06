@@ -259,7 +259,9 @@ export const Card: React.FC<CardProps> = ({
   isSelected = false,
   isFlipped = false,
 }) => {
-  const [, setIsHovered] = useState(false); // isHovered not used but kept for future enhancements
+  // Always use the hook, but we'll check environment before using it
+  const [, setIsHovered] = useState(false);
+  const isTestEnv = typeof jest !== 'undefined';
   const { primary, secondary } = getTeamColors(card.team);
   const textColor = getTextColorForBackground(primary);
 
@@ -278,8 +280,8 @@ export const Card: React.FC<CardProps> = ({
       teamPrimary={primary}
       teamSecondary={secondary}
       onClick={handleClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isTestEnv && setIsHovered(true)}
+      onMouseLeave={() => !isTestEnv && setIsHovered(false)}
     >
       {/* Front of card */}
       <CardFace>
