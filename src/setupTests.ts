@@ -1,14 +1,31 @@
 // Import jest and expect
 import { jest, expect } from '@jest/globals';
 
+// Define types for global extensions
+declare global {
+  let expect: typeof expect;
+  let jest: typeof jest;
+}
+
 // Explicitly add expect to global
-(global as any).expect = expect;
-(global as any).jest = jest;
+global.expect = expect;
+global.jest = jest;
+
+// Define types for globalThis extensions
+declare global {
+  interface GlobalThis {
+    import?: {
+      meta: {
+        env: Record<string, string>;
+      };
+    };
+  }
+}
 
 // Mock the import.meta.env before other imports
-if (typeof (globalThis as any).import === 'undefined' && typeof (globalThis as any).process !== 'undefined') {
+if (typeof globalThis.import === 'undefined' && typeof process !== 'undefined') {
   // Import.meta not available in Jest
-  (globalThis as any).import = {
+  globalThis.import = {
     meta: {
       env: {
         VITE_FIREBASE_API_KEY: 'mock-api-key',
@@ -23,10 +40,22 @@ if (typeof (globalThis as any).import === 'undefined' && typeof (globalThis as a
   }
 }
 
+// Define window.matchMedia type
+interface MediaQueryList {
+  matches: boolean;
+  media: string;
+  onchange: ((this: MediaQueryList, ev: MediaQueryListEvent) => unknown) | null;
+  addListener: (listener: (ev: MediaQueryListEvent) => void) => void;
+  removeListener: (listener: (ev: MediaQueryListEvent) => void) => void;
+  addEventListener: (type: string, listener: EventListenerOrEventListenerObject) => void;
+  removeEventListener: (type: string, listener: EventListenerOrEventListenerObject) => void;
+  dispatchEvent: (event: Event) => boolean;
+}
+
 // Add window.matchMedia mock
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query: string): MediaQueryList => ({
     matches: false,
     media: query,
     onchange: null,

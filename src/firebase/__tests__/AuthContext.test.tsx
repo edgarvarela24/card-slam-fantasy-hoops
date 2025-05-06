@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { describe, test, jest, beforeEach } from '@jest/globals'
 import { render } from '@testing-library/react'
 import { 

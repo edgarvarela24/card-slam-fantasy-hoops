@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { describe, test, expect, jest, beforeEach } from '@jest/globals'
 import { 
   signInWithEmailAndPassword,
@@ -105,7 +104,7 @@ describe('Firebase Authentication', () => {
   test('onAuthChange registers auth state change listener', () => {
     const mockCallback = jest.fn()
     ;(onAuthStateChanged as jest.Mock).mockImplementationOnce(
-      (_auth: any, callback: (user: any) => void) => {
+      (_auth: object, callback: (user: User | null) => void) => {
         callback(mockUser)
         return jest.fn() // Unsubscribe function
       }

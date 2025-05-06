@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { describe, test, expect, jest, beforeEach } from '@jest/globals'
 import { 
   addDocument,
