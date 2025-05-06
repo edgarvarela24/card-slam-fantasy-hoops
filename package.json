@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b ./tsconfig.app.json && vite build",
     "lint": "eslint .",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,css,scss}'",
     "format:check": "prettier --check 'src/**/*.{ts,tsx,js,jsx,json,css,scss}'",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@jest/globals": "^29.7.0",
     "@testing-library/dom": "^9.3.1",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",

@@ -2,13 +2,13 @@
 import { jest, expect } from '@jest/globals';
 
 // Explicitly add expect to global
-global.expect = expect;
-global.jest = jest;
+(global as any).expect = expect;
+(global as any).jest = jest;
 
 // Mock the import.meta.env before other imports
-if (typeof globalThis.import === 'undefined' && typeof globalThis.process !== 'undefined') {
-  // @ts-expect-error - Import.meta not available in Jest
-  globalThis.import = {
+if (typeof (globalThis as any).import === 'undefined' && typeof (globalThis as any).process !== 'undefined') {
+  // Import.meta not available in Jest
+  (globalThis as any).import = {
     meta: {
       env: {
         VITE_FIREBASE_API_KEY: 'mock-api-key',

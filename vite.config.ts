@@ -22,6 +22,14 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
       include: [/firebase/, /node_modules/]
+    },
+    rollupOptions: {
+      external: ['@firebase/auth', '@firebase/app', '@firebase/firestore', '@firebase/database', '@firebase/functions', '@firebase/util'],
+      output: {
+        manualChunks: {
+          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/database', 'firebase/functions']
+        }
+      }
     }
   },
   // Add specific instructions for handling Firebase modules

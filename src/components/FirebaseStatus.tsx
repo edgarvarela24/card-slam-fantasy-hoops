@@ -28,10 +28,10 @@ const FirebaseStatus: React.FC = () => {
       ]
       
       const config = { ...firebaseConfig }
-      const missingKeys = requiredKeys.filter(key => !config[key])
+      const missingKeys = requiredKeys.filter(key => !(key in config) || !config[key as keyof typeof firebaseConfig])
       
       const configValues = Object.entries(config).map(([key, value]) => 
-        `${key}: ${value ? (value as string).substring(0, 5) + '...' : 'undefined'}`
+        `${key}: ${value ? (String(value)).substring(0, 5) + '...' : 'undefined'}`
       )
       
       setConfigInfo(configValues)

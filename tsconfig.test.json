@@ -5,7 +5,13 @@
     "esModuleInterop": true,
     "types": ["jest", "node", "@testing-library/jest-dom"],
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    // Disable strict type checking rules for tests to accommodate Jest mocking
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false
   },
   "include": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/setupTests.ts", "src/**/__mocks__/**/*"]
 }

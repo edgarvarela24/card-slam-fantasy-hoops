@@ -6,8 +6,6 @@ import {
   getFirebaseAuth, 
   getRealtimeDatabase,
   getFirestore,
-  signInAnonymously,
-  signOut,
   writeData,
   readData,
   removeData,
@@ -15,6 +13,7 @@ import {
   getDocument,
   deleteDocument
 } from '../firebase'
+import { signInAnonymously, signOut } from 'firebase/auth'
 import { ref, get, set } from 'firebase/database'
 import { collection, addDoc, getDocs, query, limit, doc, getDoc, deleteDoc } from 'firebase/firestore'
 // Removed unused import: import { getAuth } from 'firebase/auth'
@@ -43,7 +42,7 @@ const testFirebaseConfig = () => {
       'storageBucket', 'messagingSenderId', 'appId'
     ]
     
-    const missingKeys = requiredKeys.filter(key => !firebaseConfig[key])
+    const missingKeys = requiredKeys.filter(key => !(key in firebaseConfig) || !firebaseConfig[key as keyof typeof firebaseConfig])
     
     if (missingKeys.length > 0) {
       printResult('Configuration', false, `Missing required keys: ${missingKeys.join(', ')}`)
@@ -70,8 +69,9 @@ const testAuthentication = async () => {
     printResult('Auth Instance', true, 'Firebase Auth initialized successfully')
     
     // Sign in anonymously
-    await signInAnonymously(auth)
-    const user = auth.currentUser
+    try {
+      await signInAnonymously(auth)
+      const user = auth.currentUser
     
     if (user) {
       printResult('Anonymous Auth', true, `Signed in anonymously with UID: ${user.uid.substring(0, 8)}...`)
@@ -82,6 +82,9 @@ const testAuthentication = async () => {
     } else {
       printResult('Anonymous Auth', false, 'Failed to sign in anonymously')
     }
+  } catch (error) {
+    printResult('Anonymous Auth', false, `Error: ${error instanceof Error ? error.message : String(error)}`)
+  }
     
     return true
   } catch (error) {
@@ -161,7 +164,7 @@ const testFirestore = async () => {
     // Test getting a document
     const retrievedDoc = await getDocument(collectionName, docRef.id)
     
-    if (retrievedDoc && retrievedDoc.timestamp === testDoc.timestamp) {
+    if (retrievedDoc && 'timestamp' in retrievedDoc && retrievedDoc.timestamp === testDoc.timestamp) {
       printResult('Get Document', true, 'Document retrieved successfully')
     } else {
       printResult('Get Document', false, 'Document retrieval failed or data mismatch')

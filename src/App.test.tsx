@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react';
-import React from 'react';
 
 // Mock Firebase modules before importing App
 jest.mock('firebase/app', () => ({
@@ -24,7 +23,7 @@ jest.mock('./firebase/AuthContext', () => ({
     user: null,
     loading: false,
   }),
-  AuthProvider: ({ children }) => children,
+  AuthProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
 
 jest.mock('./components/FirebaseStatus', () => ({
