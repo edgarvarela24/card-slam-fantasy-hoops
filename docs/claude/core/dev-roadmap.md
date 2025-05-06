@@ -17,10 +17,10 @@ Phase 2: Core Data Models & Mock Data Implementation
 - [x] Implement Card data model and service
 - [x] Implement Lineup data model and service
 - [x] Implement Pack data model and service
-- [ ] Create mock NBA data service (not using real API yet)
-- [ ] Create player database with statistics using mock data
-- [ ] Build data transformation layer for mock data
-- [ ] Create unit tests for all services
+- [x] Create mock NBA data service (not using real API yet)
+- [x] Create player database with statistics using mock data
+- [x] Build data transformation layer for mock data
+- [x] Create unit tests for all services
 
 Phase 3: Card System & Collection
 
