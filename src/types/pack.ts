@@ -36,9 +36,8 @@ export interface Pack {
  * @param type Pack type to validate
  * @returns True if valid, false otherwise
  */
-export const isValidPackType = (type: string): type is PackType => {
-  return ['standard', 'premium', 'legendary', 'special', 'starter'].includes(type as PackType);
-};
+export const isValidPackType = (type: string): type is PackType =>
+  ['standard', 'premium', 'legendary', 'special', 'starter'].includes(type as PackType);
 
 /**
  * Creates a default standard pack

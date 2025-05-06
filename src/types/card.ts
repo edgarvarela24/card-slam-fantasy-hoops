@@ -79,24 +79,21 @@ export interface Card {
  * @param position Position to validate
  * @returns True if valid, false otherwise
  */
-export const isValidPosition = (position: string): position is Position => {
-  return ['PG', 'SG', 'SF', 'PF', 'C'].includes(position as Position);
-};
+export const isValidPosition = (position: string): position is Position =>
+  ['PG', 'SG', 'SF', 'PF', 'C'].includes(position as Position);
 
 /**
  * Validates if a rarity is valid
  * @param rarity Rarity to validate
  * @returns True if valid, false otherwise
  */
-export const isValidRarity = (rarity: string): rarity is Rarity => {
-  return ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'].includes(rarity as Rarity);
-};
+export const isValidRarity = (rarity: string): rarity is Rarity =>
+  ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'].includes(rarity as Rarity);
 
 /**
  * Validates if a visual treatment is valid
  * @param treatment Visual treatment to validate
  * @returns True if valid, false otherwise
  */
-export const isValidVisualTreatment = (treatment: string): treatment is VisualTreatment => {
-  return ['Standard', 'Metallic', 'Holographic', 'Shimmer'].includes(treatment as VisualTreatment);
-};
+export const isValidVisualTreatment = (treatment: string): treatment is VisualTreatment =>
+  ['Standard', 'Metallic', 'Holographic', 'Shimmer'].includes(treatment as VisualTreatment);
