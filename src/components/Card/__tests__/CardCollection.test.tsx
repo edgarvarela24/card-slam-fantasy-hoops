@@ -68,7 +68,11 @@ const mockCards: CardType[] = [
 // Mock the Card component to avoid testing its internals and hook issues
 jest.mock('../Card', () => {
   // Simple mock component that doesn't use React hooks
-  const MockCard = (props: any) => (
+  const MockCard = (props: {
+    card: CardType;
+    isSelected?: boolean;
+    onClick?: (card: CardType) => void;
+  }) => (
     <div
       data-testid={`card-${props.card.id}`}
       data-selected={props.isSelected ? 'true' : 'false'}

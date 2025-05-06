@@ -280,7 +280,8 @@ const PlayerAvatar = styled.div`
 `;
 
 // Helper function to get player initials
-const getPlayerInitials = (name: string): string => name
+const getPlayerInitials = (name: string): string =>
+  name
     .split(' ')
     .slice(0, 2)
     .map(part => part[0])
