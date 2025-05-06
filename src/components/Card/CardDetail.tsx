@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card as CardType } from '../../types/card';
+import { Card as CardType, Rarity } from '../../types/card';
 import { getRarityBorderColor, getTeamColors, formatPercentage } from '../../utils/cardUtils';
 
 interface CardDetailProps {
@@ -74,7 +74,7 @@ const DetailContent = styled.div`
   }
 `;
 
-const CardPreview = styled.div<{ teamPrimary: string; teamSecondary: string; rarity: string }>`
+const CardPreview = styled.div<{ teamPrimary: string; teamSecondary: string; rarity: Rarity }>`
   width: 280px;
   height: 400px;
   background: linear-gradient(
@@ -172,7 +172,7 @@ const StatBarFill = styled.div<{ width: string; color: string }>`
 //   margin: 10px 0;
 // `;
 
-const RarityBadge = styled.div<{ rarity: string }>`
+const RarityBadge = styled.div<{ rarity: Rarity }>`
   position: absolute;
   top: 12px;
   right: 12px;
