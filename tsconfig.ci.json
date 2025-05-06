@@ -1,13 +1,16 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noEmit": true
   },
   "exclude": [
     "**/__tests__/**",
     "**/__mocks__/**",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "src/setupTests.ts"
+    "src/setupTests.ts",
+    "src/testSetup.js",
+    "src/suppressWarnings.js"
   ]
 }
