@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,css,scss}'",
     "format:check": "prettier --check 'src/**/*.{ts,tsx,js,jsx,json,css,scss}'",
+    "typecheck": "tsc -p tsconfig.ci.json --noEmit",
+    "typecheck:all": "tsc -b",
     "preview": "vite preview",
     "test": "jest",
     "test:quiet": "NODE_OPTIONS='--no-warnings' yarn jest --silent",
