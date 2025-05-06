@@ -11,16 +11,15 @@ Implement basic user authentication
 Create initial database schema
 Set up CI/CD pipeline for automated testing
 
-Phase 2: Core Data Models & API Integration
+Phase 2: Core Data Models & Mock Data Implementation
 
 Implement User data model and service
 Implement Card data model and service
 Implement Lineup data model and service
 Implement Pack data model and service
-Set up NBA API integration service
-Create player database with statistics
-Implement mock data for development/testing
-Build data transformation layer
+Create mock NBA data service (not using real API yet)
+Create player database with statistics using mock data
+Build data transformation layer for mock data
 Create unit tests for all services
 
 Phase 3: Card System & Collection

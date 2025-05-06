@@ -23,14 +23,19 @@ For Card Slam Fantasy Hoops, we're adopting a rigorous test-driven development (
 ## The TDD Workflow
 
 1. **Understand the requirement** clearly before writing any code
-2. **Write a failing test** that defines the expected behavior
+2. **Create minimal implementation or interface** to let tests compile
+   - Create basic type definitions or empty classes/functions
+   - Don't implement actual functionality yet
+   - This step ensures tests can run (and fail) rather than fail to compile
+3. **Write a failing test** that defines the expected behavior
    - Test should be minimal but meaningful
    - Avoid testing trivial implementations (like `1 + 1 = 2`)
    - Focus on testing the contract/interface, not implementation details
-3. **Implement the minimal code** to make the test pass
+   - Tests should run (and fail with assertion errors) rather than fail to compile
+4. **Implement the minimal code** to make the test pass
    - Write just enough code to make the test pass
    - Don't implement features not covered by tests
-4. **Refactor** while keeping tests passing
+5. **Refactor** while keeping tests passing
    - Improve code design without changing behavior
    - Run tests after each refactoring step
 
