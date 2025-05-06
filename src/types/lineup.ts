@@ -62,7 +62,7 @@ export const validateLineup = (lineup: Lineup): LineupValidationResult => {
 
   // Check for all required positions
   const positions = lineup.cards.map(card => card.position);
-  
+
   // Check each required position
   for (const requiredPosition of REQUIRED_POSITIONS) {
     if (!positions.includes(requiredPosition)) {
@@ -72,10 +72,13 @@ export const validateLineup = (lineup: Lineup): LineupValidationResult => {
   }
 
   // Check for duplicate positions
-  const positionCounts = positions.reduce((counts, position) => {
-    counts[position] = (counts[position] || 0) + 1;
-    return counts;
-  }, {} as Record<Position, number>);
+  const positionCounts = positions.reduce(
+    (counts, position) => {
+      counts[position] = (counts[position] || 0) + 1;
+      return counts;
+    },
+    {} as Record<Position, number>
+  );
 
   for (const [position, count] of Object.entries(positionCounts)) {
     if (count > 1) {
