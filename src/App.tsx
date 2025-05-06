@@ -3,6 +3,7 @@ import './App.css';
 import { AuthProvider } from './firebase/auth-context';
 import AuthStatus from './components/AuthStatus';
 import FirebaseStatus from './components/FirebaseStatus';
+import CardDemo from './components/CardDemo';
 
 function App() {
   return (
@@ -16,8 +17,13 @@ function App() {
         </header>
 
         <main className="app-main">
+          {/* Card Demo section - main feature */}
+          <section className="card-demo-section">
+            <CardDemo />
+          </section>
+
           <section className="welcome-section">
-            <h2>Welcome to Card Slam Fantasy Hoops!</h2>
+            <h2>About Card Slam Fantasy Hoops</h2>
             <p>
               Collect digital basketball cards, create lineups, and compete based on real NBA player
               performances.

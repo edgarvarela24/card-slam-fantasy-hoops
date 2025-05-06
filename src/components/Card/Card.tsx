@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Card as CardType, Position, Rarity } from '../../types/card';
+import { Card as CardType, Rarity } from '../../types/card';
 import {
   getRarityBorderColor,
   getTeamColors,
@@ -246,7 +246,8 @@ const AbilityDescription = styled.p`
 `;
 
 // Helper function to get player initials
-const getPlayerInitials = (name: string): string => name
+const getPlayerInitials = (name: string): string =>
+  name
     .split(' ')
     .slice(0, 2)
     .map(part => part[0])
@@ -279,7 +280,6 @@ export const Card: React.FC<CardProps> = ({
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      isselected={isSelected ? 'true' : 'false'}
     >
       {/* Front of card */}
       <CardFace>
