@@ -35,9 +35,9 @@ if (typeof globalThis.import === 'undefined' && typeof process !== 'undefined') 
         VITE_FIREBASE_MESSAGING_SENDER_ID: '123456789',
         VITE_FIREBASE_APP_ID: '1:123456789:web:abcdef123456',
         VITE_FIREBASE_MEASUREMENT_ID: 'G-ABCDEF123',
-      }
-    }
-  }
+      },
+    },
+  };
 }
 
 // Define window.matchMedia type
@@ -55,15 +55,16 @@ interface MediaQueryList {
 // Add window.matchMedia mock
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation((query: string): MediaQueryList => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
+  value: jest.fn().mockImplementation(
+    (query: string): MediaQueryList => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(), // deprecated
+      removeListener: jest.fn(), // deprecated
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })
+  ),
 });
-

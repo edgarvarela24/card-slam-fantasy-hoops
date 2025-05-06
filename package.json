@@ -15,7 +15,9 @@
     "setup:firebase": "node src/scripts/setupEnv.js",
     "validate:firebase": "node src/scripts/validateConfig.js",
     "test:firebase": "node src/scripts/testConnectivity.js",
-    "clean:cache": "rm -rf node_modules/.vite"
+    "clean:cache": "rm -rf node_modules/.vite",
+    "prepare": "husky",
+    "commitlint": "commitlint"
   },
   "dependencies": {
     "@firebase/app": "^0.11.5",
@@ -26,6 +28,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
     "@eslint/js": "^9.22.0",
     "@jest/globals": "^29.7.0",
     "@testing-library/dom": "^9.3.1",
@@ -41,9 +45,11 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.5.1",
     "prettier": "^3.2.4",
     "supports-color": "^10.0.0",
     "ts-jest": "^29.3.2",

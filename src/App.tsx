@@ -1,8 +1,8 @@
 // App component
-import './App.css'
-import { AuthProvider } from './firebase/auth-context'
-import AuthStatus from './components/AuthStatus'
-import FirebaseStatus from './components/FirebaseStatus'
+import './App.css';
+import { AuthProvider } from './firebase/auth-context';
+import AuthStatus from './components/AuthStatus';
+import FirebaseStatus from './components/FirebaseStatus';
 
 function App() {
   return (
@@ -14,12 +14,13 @@ function App() {
             <AuthStatus />
           </div>
         </header>
-        
+
         <main className="app-main">
           <section className="welcome-section">
             <h2>Welcome to Card Slam Fantasy Hoops!</h2>
             <p>
-              Collect digital basketball cards, create lineups, and compete based on real NBA player performances.
+              Collect digital basketball cards, create lineups, and compete based on real NBA player
+              performances.
             </p>
             <div className="features">
               <div className="feature">
@@ -36,20 +37,20 @@ function App() {
               </div>
             </div>
           </section>
-          
+
           {/* Firebase status section */}
           <section className="firebase-status-section">
             <h2>System Status</h2>
             <FirebaseStatus />
           </section>
         </main>
-        
+
         <footer className="app-footer">
           <p>&copy; {new Date().getFullYear()} Card Slam Fantasy Hoops</p>
         </footer>
       </div>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

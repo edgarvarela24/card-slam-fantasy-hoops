@@ -1,32 +1,32 @@
-import React, { useState, useEffect, ReactNode } from 'react'
-import { User } from 'firebase/auth'
-import { 
-  getCurrentUser, 
-  onAuthChange, 
-  signIn as authSignIn, 
+import React, { useState, useEffect, ReactNode } from 'react';
+import { User } from 'firebase/auth';
+import {
+  getCurrentUser,
+  onAuthChange,
+  signIn as authSignIn,
   signUp as authSignUp,
   logout as authLogout,
-  resetPassword as authResetPassword
-} from './auth'
-import { AuthContext } from './authHooks'
-import type { AuthContextType } from './authHooks'
+  resetPassword as authResetPassword,
+} from './auth';
+import { AuthContext } from './authHooks';
+import type { AuthContextType } from './authHooks';
 
 interface AuthProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(getCurrentUser())
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<User | null>(getCurrentUser());
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthChange((authUser) => {
-      setUser(authUser)
-      setLoading(false)
-    })
+    const unsubscribe = onAuthChange(authUser => {
+      setUser(authUser);
+      setLoading(false);
+    });
 
-    return () => unsubscribe()
-  }, [])
+    return () => unsubscribe();
+  }, []);
 
   const value: AuthContextType = {
     user,
@@ -34,8 +34,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     signIn: authSignIn,
     signUp: authSignUp,
     logout: authLogout,
-    resetPassword: authResetPassword
-  }
+    resetPassword: authResetPassword,
+  };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};

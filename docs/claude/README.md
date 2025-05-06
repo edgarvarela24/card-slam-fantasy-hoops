@@ -20,5 +20,6 @@ This project uses a modular documentation system in the `/docs/claude/` director
 - Firebase Feature → core/architecture.md + implementation/firebase.md
 - Animation Implementation → design/animation.md
 - Testing Strategy → testing/tdd-approach.md + testing/unit-testing.md
+- Git Workflow/Hooks → implementation/git-hooks.md
 
 Always follow the TDD approach for all implementation tasks!

@@ -1,5 +1,5 @@
-import { getFirebaseApp, getFirebaseAuth, getFirestore } from './firebase'
-import { getRealtimeDb } from './database'
+import { getFirebaseApp, getFirebaseAuth, getFirestore } from './firebase';
+import { getRealtimeDb } from './database';
 
 /**
  * Initialize all Firebase services
@@ -7,20 +7,20 @@ import { getRealtimeDb } from './database'
  */
 export const initializeFirebase = () => {
   // Initialize Firebase app
-  const app = getFirebaseApp()
-  console.log('Firebase app initialized:', app.name)
-  
+  const app = getFirebaseApp();
+  console.log('Firebase app initialized:', app.name);
+
   // Initialize auth
-  const auth = getFirebaseAuth()
-  console.log('Firebase auth initialized')
-  
+  const auth = getFirebaseAuth();
+  console.log('Firebase auth initialized');
+
   // Initialize Firestore
-  const firestore = getFirestore()
-  console.log('Firestore initialized')
-  
+  const firestore = getFirestore();
+  console.log('Firestore initialized');
+
   // Initialize Realtime Database
-  const database = getRealtimeDb()
-  console.log('Realtime Database initialized')
-  
-  return { app, auth, firestore, database }
-}
+  const database = getRealtimeDb();
+  console.log('Realtime Database initialized');
+
+  return { app, auth, firestore, database };
+};

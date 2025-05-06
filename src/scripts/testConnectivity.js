@@ -26,28 +26,28 @@ const colors = {
   green: '\x1b[32m',
   yellow: '\x1b[33m',
   blue: '\x1b[34m',
-  cyan: '\x1b[36m'
+  cyan: '\x1b[36m',
 };
 
-const printHeader = (title) => {
+const printHeader = title => {
   console.log('\n' + colors.blue + '='.repeat(title.length + 10) + colors.reset);
   console.log(colors.blue + `===== ${title} =====` + colors.reset);
   console.log(colors.blue + '='.repeat(title.length + 10) + colors.reset + '\n');
 };
 
-const printSuccess = (message) => {
+const printSuccess = message => {
   console.log(colors.green + '✅ ' + colors.reset + message);
 };
 
-const printError = (message) => {
+const printError = message => {
   console.log(colors.red + '❌ ' + colors.reset + message);
 };
 
-const printWarning = (message) => {
+const printWarning = message => {
   console.log(colors.yellow + '⚠️ ' + colors.reset + message);
 };
 
-const printInfo = (message) => {
+const printInfo = message => {
   console.log(colors.cyan + 'ℹ️ ' + colors.reset + message);
 };
 
@@ -61,13 +61,13 @@ const getFirebaseConfig = () => {
     messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.VITE_FIREBASE_APP_ID,
     measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID,
-    databaseURL: process.env.VITE_FIREBASE_DATABASE_URL
+    databaseURL: process.env.VITE_FIREBASE_DATABASE_URL,
   };
 };
 
 // Test if the Firebase project exists by making a request to Firebase Auth API
-const testFirebaseAuth = (apiKey) => {
-  return new Promise((resolve) => {
+const testFirebaseAuth = apiKey => {
+  return new Promise(resolve => {
     if (!apiKey) {
       printError('No API Key provided');
       resolve(false);
@@ -77,33 +77,40 @@ const testFirebaseAuth = (apiKey) => {
     const url = `https://identitytoolkit.googleapis.com/v1/projects/_/accounts:createAuthUri?key=${apiKey}`;
     const data = JSON.stringify({
       continueUri: 'http://localhost',
-      providerId: 'google.com'
+      providerId: 'google.com',
     });
 
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Content-Length': data.length
-      }
+        'Content-Length': data.length,
+      },
     };
 
-    const req = https.request(url, options, (res) => {
+    const req = https.request(url, options, res => {
       let responseData = '';
-      
-      res.on('data', (chunk) => {
+
+      res.on('data', chunk => {
         responseData += chunk;
       });
-      
+
       res.on('end', () => {
         try {
           const json = JSON.parse(responseData);
-          
-          if (res.statusCode === 400 && json.error && json.error.message === 'INVALID_CONTINUE_URI') {
+
+          if (
+            res.statusCode === 400 &&
+            json.error &&
+            json.error.message === 'INVALID_CONTINUE_URI'
+          ) {
             // This is actually a "good" error - it means the API key is valid but the continueUri is invalid
             printSuccess('Firebase API Key is valid');
             resolve(true);
-          } else if (json.error && json.error.message === 'API key not valid. Please pass a valid API key.') {
+          } else if (
+            json.error &&
+            json.error.message === 'API key not valid. Please pass a valid API key.'
+          ) {
             printError('Firebase API Key is invalid');
             resolve(false);
           } else {
@@ -116,20 +123,20 @@ const testFirebaseAuth = (apiKey) => {
         }
       });
     });
-    
-    req.on('error', (error) => {
+
+    req.on('error', error => {
       printError(`Request error: ${error.message}`);
       resolve(false);
     });
-    
+
     req.write(data);
     req.end();
   });
 };
 
 // Test if the Firestore database exists
-const testFirestore = (projectId) => {
-  return new Promise((resolve) => {
+const testFirestore = projectId => {
+  return new Promise(resolve => {
     if (!projectId) {
       printError('No Project ID provided');
       resolve(false);
@@ -137,14 +144,14 @@ const testFirestore = (projectId) => {
     }
 
     const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)`;
-    
-    const req = https.request(url, (res) => {
+
+    const req = https.request(url, res => {
       let responseData = '';
-      
-      res.on('data', (chunk) => {
+
+      res.on('data', chunk => {
         responseData += chunk;
       });
-      
+
       res.on('end', () => {
         if (res.statusCode === 200) {
           printSuccess('Firestore database exists');
@@ -154,7 +161,9 @@ const testFirestore = (projectId) => {
           resolve(false);
         } else if (res.statusCode === 403) {
           printWarning('Could not verify Firestore database (permission denied)');
-          printInfo('This is normal if you\'re using the Firebase emulator or haven\'t enabled Firestore yet');
+          printInfo(
+            "This is normal if you're using the Firebase emulator or haven't enabled Firestore yet"
+          );
           resolve(false);
         } else {
           try {
@@ -167,18 +176,18 @@ const testFirestore = (projectId) => {
         }
       });
     });
-    
-    req.on('error', (error) => {
+
+    req.on('error', error => {
       printError(`Request error: ${error.message}`);
       resolve(false);
     });
-    
+
     req.end();
   });
 };
 
-const testRealtimeDatabase = (databaseURL) => {
-  return new Promise((resolve) => {
+const testRealtimeDatabase = databaseURL => {
+  return new Promise(resolve => {
     if (!databaseURL) {
       printWarning('No Database URL provided - Realtime Database might not be configured');
       resolve(false);
@@ -186,17 +195,15 @@ const testRealtimeDatabase = (databaseURL) => {
     }
 
     // Make sure the URL ends with .json for REST API access
-    const url = databaseURL.endsWith('/') 
-      ? `${databaseURL}.json` 
-      : `${databaseURL}/.json`;
-    
-    const req = https.request(url, (res) => {
+    const url = databaseURL.endsWith('/') ? `${databaseURL}.json` : `${databaseURL}/.json`;
+
+    const req = https.request(url, res => {
       let responseData = '';
-      
-      res.on('data', (chunk) => {
+
+      res.on('data', chunk => {
         responseData += chunk;
       });
-      
+
       res.on('end', () => {
         if (res.statusCode === 200) {
           printSuccess('Realtime Database exists and is accessible');
@@ -219,49 +226,55 @@ const testRealtimeDatabase = (databaseURL) => {
         }
       });
     });
-    
-    req.on('error', (error) => {
+
+    req.on('error', error => {
       printError(`Request error: ${error.message}`);
       resolve(false);
     });
-    
+
     req.end();
   });
 };
 
 const main = async () => {
   printHeader('FIREBASE CONNECTIVITY TEST');
-  
+
   // Get configuration
   const config = getFirebaseConfig();
-  
+
   printHeader('Configuration Check');
-  
+
   // Check required configuration values
   const requiredKeys = [
-    'apiKey', 'authDomain', 'projectId', 
-    'storageBucket', 'messagingSenderId', 'appId'
+    'apiKey',
+    'authDomain',
+    'projectId',
+    'storageBucket',
+    'messagingSenderId',
+    'appId',
   ];
-  
+
   const missingKeys = requiredKeys.filter(key => !config[key]);
-  
+
   if (missingKeys.length > 0) {
     printError(`Missing required configuration: ${missingKeys.join(', ')}`);
     printInfo('Please run "yarn setup:firebase" to configure these variables');
     return;
   }
-  
+
   printSuccess('All required configuration values are present');
-  
+
   // Check optional configuration values
   const optionalKeys = ['measurementId', 'databaseURL'];
   const missingOptional = optionalKeys.filter(key => !config[key]);
-  
+
   if (missingOptional.includes('databaseURL')) {
     printWarning('No databaseURL provided - Realtime Database features might not work');
-    printInfo('Add VITE_FIREBASE_DATABASE_URL to your .env file if you plan to use Realtime Database');
+    printInfo(
+      'Add VITE_FIREBASE_DATABASE_URL to your .env file if you plan to use Realtime Database'
+    );
   }
-  
+
   // Display configuration (first 5 chars only)
   console.log('\nConfiguration preview (first few characters only):');
   Object.entries(config).forEach(([key, value]) => {
@@ -269,34 +282,34 @@ const main = async () => {
       console.log(`  - ${key}: ${value.substring(0, 5)}...`);
     }
   });
-  
+
   // Test API key
   printHeader('Firebase Authentication');
   const authValid = await testFirebaseAuth(config.apiKey);
-  
+
   // Test Firestore
   printHeader('Firebase Firestore');
   const firestoreValid = await testFirestore(config.projectId);
-  
+
   // Test Realtime Database
   printHeader('Firebase Realtime Database');
   const rtdbValid = await testRealtimeDatabase(config.databaseURL);
-  
+
   // Summary
   printHeader('Connectivity Summary');
-  
+
   if (authValid) {
     printSuccess('Firebase API Key is valid');
   } else {
     printError('Firebase API Key validation failed');
   }
-  
+
   if (firestoreValid) {
     printSuccess('Firestore database is configured');
   } else {
     printWarning('Firestore database might need to be set up');
   }
-  
+
   if (rtdbValid) {
     printSuccess('Realtime Database is accessible');
   } else if (!config.databaseURL) {
@@ -304,9 +317,11 @@ const main = async () => {
   } else {
     printError('Realtime Database connectivity failed');
   }
-  
+
   if (authValid) {
-    console.log('\n' + colors.green + '✅ Firebase project appears to be properly configured!' + colors.reset);
+    console.log(
+      '\n' + colors.green + '✅ Firebase project appears to be properly configured!' + colors.reset
+    );
     console.log('\nNext steps:');
     console.log('1. Run "yarn dev" to start the application');
     console.log('2. Check the Firebase connection status in the app');
@@ -315,8 +330,10 @@ const main = async () => {
     console.log('\n' + colors.red + '❌ Firebase project has configuration issues.' + colors.reset);
     console.log('\nTroubleshooting steps:');
     console.log('1. Double-check all values in your .env file');
-    console.log('2. Ensure you\'ve created a Firebase project at https://console.firebase.google.com');
-    console.log('3. Make sure you\'ve registered a web app in your Firebase project');
+    console.log(
+      "2. Ensure you've created a Firebase project at https://console.firebase.google.com"
+    );
+    console.log("3. Make sure you've registered a web app in your Firebase project");
     console.log('4. Run "yarn setup:firebase" to reconfigure your Firebase settings');
   }
 };

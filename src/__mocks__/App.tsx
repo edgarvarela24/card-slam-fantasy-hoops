@@ -8,9 +8,7 @@ function App() {
         <img src="/react.svg" className="logo react" alt="React logo" />
         <h1>Card Slam Fantasy Hoops</h1>
         <div className="card">
-          <button>
-            count is 0
-          </button>
+          <button>count is 0</button>
         </div>
       </header>
     </div>
