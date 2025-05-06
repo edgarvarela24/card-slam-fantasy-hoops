@@ -40,7 +40,7 @@ jobs:
       run: yarn test
     
     - name: Type check (app code only)
-      run: yarn tsc -p tsconfig.ci.json --noEmit
+      run: yarn typecheck
     
     - name: Build
       run: yarn build

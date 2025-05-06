@@ -25,10 +25,10 @@ The project uses GitHub Actions for CI/CD. The main workflow is defined in `.git
 
 4. **Type checking**: Uses TypeScript to check for type errors in application code
    ```bash
-   yarn tsc -p tsconfig.ci.json --noEmit
+   yarn typecheck
    ```
 
-5. **Build**: Builds the application to ensure it compiles correctly
+5. **Build**: Performs type checking and builds the application
    ```bash
    yarn build
    ```
