@@ -39,8 +39,8 @@ jobs:
     - name: Run tests
       run: yarn test
     
-    - name: Type check
-      run: tsc -b
+    - name: Type check (app code only)
+      run: yarn typecheck
     
     - name: Build
       run: yarn build

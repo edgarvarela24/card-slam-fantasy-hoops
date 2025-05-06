@@ -1,12 +1,12 @@
 // Add testing-library matchers to global jest
 Object.defineProperty(global, 'toBeInTheDocument', {
   get: () => () => ({ pass: true }),
-  configurable: true
+  configurable: true,
 });
 
 Object.defineProperty(global, 'toHaveTextContent', {
   get: () => () => ({ pass: true }),
-  configurable: true
+  configurable: true,
 });
 
 if (!global.TextEncoder) {
@@ -31,7 +31,7 @@ if (!global.jest) {
     mock: () => {},
     fn: () => ({
       mockImplementation: () => () => {},
-      mockReturnValue: () => () => {}
-    })
+      mockReturnValue: () => () => {},
+    }),
   };
 }

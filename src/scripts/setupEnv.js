@@ -16,7 +16,7 @@ const __dirname = path.dirname(__filename);
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 // Define the required environment variables
@@ -24,38 +24,38 @@ const envVars = [
   {
     name: 'VITE_FIREBASE_API_KEY',
     description: 'Firebase API Key',
-    example: 'AIzaSyC_UK1234567890abcdefg'
+    example: 'AIzaSyC_UK1234567890abcdefg',
   },
   {
     name: 'VITE_FIREBASE_AUTH_DOMAIN',
     description: 'Firebase Auth Domain',
-    example: 'your-project-id.firebaseapp.com'
+    example: 'your-project-id.firebaseapp.com',
   },
   {
     name: 'VITE_FIREBASE_PROJECT_ID',
     description: 'Firebase Project ID',
-    example: 'your-project-id'
+    example: 'your-project-id',
   },
   {
     name: 'VITE_FIREBASE_STORAGE_BUCKET',
     description: 'Firebase Storage Bucket',
-    example: 'your-project-id.appspot.com'
+    example: 'your-project-id.appspot.com',
   },
   {
     name: 'VITE_FIREBASE_MESSAGING_SENDER_ID',
     description: 'Firebase Messaging Sender ID',
-    example: '123456789012'
+    example: '123456789012',
   },
   {
     name: 'VITE_FIREBASE_APP_ID',
     description: 'Firebase App ID',
-    example: '1:123456789012:web:abc123def456'
+    example: '1:123456789012:web:abc123def456',
   },
   {
     name: 'VITE_FIREBASE_MEASUREMENT_ID',
     description: 'Firebase Measurement ID (optional)',
-    example: 'G-ABC123DEF'
-  }
+    example: 'G-ABC123DEF',
+  },
 ];
 
 // Path to .env file in project root
@@ -73,11 +73,14 @@ async function promptForEnvVars() {
 
   for (const variable of envVars) {
     const value = await new Promise(resolve => {
-      rl.question(`${variable.name} (${variable.description}) [example: ${variable.example}]: `, answer => {
-        resolve(answer.trim());
-      });
+      rl.question(
+        `${variable.name} (${variable.description}) [example: ${variable.example}]: `,
+        answer => {
+          resolve(answer.trim());
+        }
+      );
     });
-    
+
     values[variable.name] = value;
   }
 
@@ -92,7 +95,7 @@ function writeEnvFile(values) {
     .join('\n');
 
   fs.writeFileSync(envFilePath, envFileContent);
-  
+
   console.log('\n✅ .env file has been created successfully at:', envFilePath);
   console.log('\nTo test your configuration:');
   console.log('1. Run the application with: yarn dev');
@@ -110,17 +113,17 @@ async function main() {
           resolve(answer.toLowerCase() === 'y');
         });
       });
-      
+
       if (!overwrite) {
         console.log('Setup cancelled. Existing .env file was not modified.');
         rl.close();
         return;
       }
     }
-    
+
     const values = await promptForEnvVars();
     writeEnvFile(values);
-    
+
     console.log('\nFor more information on setting up Firebase, see docs/FIREBASE_SETUP_GUIDE.md');
   } catch (error) {
     console.error('Error setting up environment variables:', error);

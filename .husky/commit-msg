@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Check commit message format
+yarn commitlint --edit $1

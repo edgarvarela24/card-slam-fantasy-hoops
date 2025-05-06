@@ -5,11 +5,11 @@ const React = require('react');
 const mockFunctions = {
   signIn: jest.fn().mockImplementation((email, password) => Promise.resolve({ user: { email } })),
   signUp: jest.fn().mockImplementation((email, password) => Promise.resolve({ user: { email } })),
-  logout: jest.fn().mockImplementation(() => Promise.resolve())
+  logout: jest.fn().mockImplementation(() => Promise.resolve()),
 };
 
 // Create elements with textContent and built-in expectations
-const createElement = (content) => {
+const createElement = content => {
   const element = {
     textContent: content,
     value: content,
@@ -22,7 +22,7 @@ const createElement = (content) => {
       } else if (contentStr.indexOf('Log out') >= 0 || contentStr.match(/log out/i)) {
         mockFunctions.logout();
       }
-    })
+    }),
   };
   return element;
 };
@@ -31,43 +31,45 @@ const createElement = (content) => {
 const testIdMap = {
   'auth-status': 'Not logged in',
   'auth-error': 'Error: Invalid credentials',
-  'user': 'test@example.com',
-  'loading': 'false'
+  user: 'test@example.com',
+  loading: 'false',
 };
 
 // Render function returns query methods
-const render = (component) => {
+const render = component => {
   return {
-    getByText: (text) => createElement(typeof text === 'string' ? text : text.source || 'Text'),
+    getByText: text => createElement(typeof text === 'string' ? text : text.source || 'Text'),
     getByRole: (role, options) => createElement(options?.name || role),
-    getByAltText: (alt) => createElement(typeof alt === 'string' ? alt : alt.source || 'Alt Text'),
-    getByLabelText: (label) => createElement(typeof label === 'string' ? label : label.source || 'Label'),
-    getByTestId: (id) => createElement(testIdMap[id] || id),
-    queryByText: (text) => createElement(typeof text === 'string' ? text : text.source || 'Text'),
-    queryByTestId: (id) => testIdMap[id] ? createElement(testIdMap[id]) : null,
+    getByAltText: alt => createElement(typeof alt === 'string' ? alt : alt.source || 'Alt Text'),
+    getByLabelText: label =>
+      createElement(typeof label === 'string' ? label : label.source || 'Label'),
+    getByTestId: id => createElement(testIdMap[id] || id),
+    queryByText: text => createElement(typeof text === 'string' ? text : text.source || 'Text'),
+    queryByTestId: id => (testIdMap[id] ? createElement(testIdMap[id]) : null),
   };
 };
 
 // Act function for React testing
-const act = (callback) => {
+const act = callback => {
   callback();
   return Promise.resolve();
 };
 
 // Screen provides the same query methods globally
 const screen = {
-  getByText: (text) => createElement(typeof text === 'string' ? text : text.source || 'Text'),
+  getByText: text => createElement(typeof text === 'string' ? text : text.source || 'Text'),
   getByRole: (role, options) => createElement(options?.name || role),
-  getByAltText: (alt) => createElement(typeof alt === 'string' ? alt : alt.source || 'Alt Text'),
-  getByLabelText: (label) => createElement(typeof label === 'string' ? label : label.source || 'Label'),
-  getByTestId: (id) => createElement(testIdMap[id] || id),
-  queryByText: (text) => createElement(typeof text === 'string' ? text : text.source || 'Text'),
-  queryByTestId: (id) => testIdMap[id] ? createElement(testIdMap[id]) : null,
+  getByAltText: alt => createElement(typeof alt === 'string' ? alt : alt.source || 'Alt Text'),
+  getByLabelText: label =>
+    createElement(typeof label === 'string' ? label : label.source || 'Label'),
+  getByTestId: id => createElement(testIdMap[id] || id),
+  queryByText: text => createElement(typeof text === 'string' ? text : text.source || 'Text'),
+  queryByTestId: id => (testIdMap[id] ? createElement(testIdMap[id]) : null),
 };
 
 // Fire event simulates DOM events
 const fireEvent = {
-  click: (element) => {
+  click: element => {
     if (element && typeof element.click === 'function') {
       element.click();
     }
@@ -78,16 +80,20 @@ const fireEvent = {
       element.value = event.target.value;
     }
     return undefined;
-  }
+  },
 };
 
 // Wait for function for async testing
-const waitFor = (callback) => Promise.resolve(callback());
+const waitFor = callback => Promise.resolve(callback());
 
 // Update mock function implementation dynamically
 const updateMockImplementations = () => {
-  mockFunctions.signIn.mockImplementation((email, password) => Promise.resolve({ user: { email } }));
-  mockFunctions.signUp.mockImplementation((email, password) => Promise.resolve({ user: { email } }));
+  mockFunctions.signIn.mockImplementation((email, password) =>
+    Promise.resolve({ user: { email } })
+  );
+  mockFunctions.signUp.mockImplementation((email, password) =>
+    Promise.resolve({ user: { email } })
+  );
   mockFunctions.logout.mockImplementation(() => Promise.resolve());
 };
 
@@ -100,5 +106,5 @@ module.exports = {
   fireEvent,
   waitFor,
   // Expose mock functions for AuthContext test
-  ...mockFunctions
+  ...mockFunctions,
 };

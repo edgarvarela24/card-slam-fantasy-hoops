@@ -10,7 +10,9 @@ export const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
   // Add database URL if it exists; if not, construct from project ID
-  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL || 
-    (import.meta.env.VITE_FIREBASE_PROJECT_ID ? 
-      `https://${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseio.com` : undefined)
-}
+  databaseURL:
+    import.meta.env.VITE_FIREBASE_DATABASE_URL ||
+    (import.meta.env.VITE_FIREBASE_PROJECT_ID
+      ? `https://${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseio.com`
+      : undefined),
+};
