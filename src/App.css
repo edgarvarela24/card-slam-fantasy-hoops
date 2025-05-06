@@ -115,6 +115,16 @@ body {
   margin-top: auto;
 }
 
+/* Card Demo Section */
+.card-demo-section {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 /* Firebase Status Section */
 .firebase-status-section {
   margin-top: 3rem;

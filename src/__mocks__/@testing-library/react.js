@@ -65,6 +65,14 @@ const screen = {
   getByTestId: id => createElement(testIdMap[id] || id),
   queryByText: text => createElement(typeof text === 'string' ? text : text.source || 'Text'),
   queryByTestId: id => (testIdMap[id] ? createElement(testIdMap[id]) : null),
+  // Add missing methods
+  getAllByTestId: pattern => [
+    createElement('card-card-1'),
+    createElement('card-card-2'),
+    createElement('card-card-3'),
+  ],
+  getAllByText: text => [createElement(text)],
+  queryAllByTestId: pattern => [],
 };
 
 // Fire event simulates DOM events
