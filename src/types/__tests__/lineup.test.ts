@@ -1,4 +1,4 @@
-import { Lineup, LineupCard, validateLineup, LineupValidationResult } from '../lineup';
+import { Lineup, validateLineup } from '../lineup';
 
 describe('Lineup Type', () => {
   // Setup some mock card IDs for testing
@@ -7,7 +7,7 @@ describe('Lineup Type', () => {
   const sfCardId = 'card-sf-789';
   const pfCardId = 'card-pf-012';
   const centerCardId = 'card-c-345';
-  
+
   it('should create a valid Lineup object with required fields', () => {
     const lineup: Lineup = {
       id: 'lineup123',
@@ -77,7 +77,7 @@ describe('Lineup Type', () => {
     };
 
     const result = validateLineup(validLineup);
-    
+
     expect(result.valid).toBe(true);
     expect(result.errors.length).toBe(0);
   });
@@ -100,7 +100,7 @@ describe('Lineup Type', () => {
     };
 
     const result = validateLineup(invalidLineup);
-    
+
     expect(result.valid).toBe(false);
     expect(result.errors.length).toBe(1);
     expect(result.errors[0]).toContain('SF');
@@ -124,7 +124,7 @@ describe('Lineup Type', () => {
     };
 
     const result = validateLineup(invalidLineup);
-    
+
     expect(result.valid).toBe(false);
     expect(result.errors.length).toBeGreaterThan(0);
     const hasDuplicateError = result.errors.some(error => error.includes('duplicate'));
@@ -150,7 +150,7 @@ describe('Lineup Type', () => {
     };
 
     const result = validateLineup(invalidLineup);
-    
+
     expect(result.valid).toBe(false);
     expect(result.errors.length).toBeGreaterThan(0);
     expect(result.errors[0]).toContain('maximum');

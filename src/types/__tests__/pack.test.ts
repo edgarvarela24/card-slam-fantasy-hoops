@@ -1,4 +1,4 @@
-import { Pack, RarityDistribution, PackType, isValidPackType } from '../pack';
+import { Pack, RarityDistribution, isValidPackType } from '../pack';
 
 describe('Pack Type', () => {
   it('should create a valid Pack object with required fields', () => {

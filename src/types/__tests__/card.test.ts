@@ -1,4 +1,11 @@
-import { Card, Rarity, Position, PlayerStats, SpecialAbility, VisualTreatment, isValidRarity, isValidPosition, isValidVisualTreatment } from '../card';
+import {
+  Card,
+  PlayerStats,
+  SpecialAbility,
+  isValidRarity,
+  isValidPosition,
+  isValidVisualTreatment,
+} from '../card';
 
 describe('Card Type', () => {
   it('should create a valid Card object with required fields', () => {
