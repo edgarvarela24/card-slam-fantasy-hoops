@@ -12,12 +12,6 @@ The pre-commit hook runs automatically when you attempt to commit changes and pe
 2. **Linting** with ESLint
    - Lints and fixes JS/TS files
 
-3. **Type checking** with TypeScript
-   - Runs the TypeScript compiler on changed TS files to catch type errors
-
-4. **Running related tests**
-   - Runs tests related to changed files
-
 ## Commit Message Hook
 
 We use commitlint to enforce conventional commit message format:
@@ -40,11 +34,16 @@ Where `type` is one of:
 
 The pre-push hook runs before pushing to a remote repository and:
 
-1. **Prevents pushing directly to the main branch**
-   - Forces development through pull requests
-
-2. **Runs all tests**
+1. **Runs all tests**
    - Ensures all tests pass before code is pushed
+
+## Simplified Workflow
+
+This project uses a simplified git workflow:
+
+1. Direct pushes to main are allowed, as this is a single-developer project
+2. Code quality is maintained through pre-commit hooks for formatting and linting
+3. Tests are run before pushing to catch issues early
 
 ## Troubleshooting
 
