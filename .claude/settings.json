@@ -1,0 +1,39 @@
+{
+  "project": "Card Slam Fantasy Hoops",
+  "permissions": {
+    "allow": ["Bash(yarn:*)", "Bash(git:*)", "Bash(gh:*)", "Bash(node:*)", "Bash(npm:*)"]
+  },
+  "autoLoadContext": true,
+  "defaultCommands": [
+    "/project:run-tests",
+    "/project:fix-lint",
+    "/project:tdd-workflow",
+    "/project:quality-check"
+  ],
+  "thinkingLevel": "standard",
+  "documentation": {
+    "projectContext": "/CLAUDE.md",
+    "coreDocuments": [
+      "/docs/claude/core/project-overview.md",
+      "/docs/claude/core/architecture.md",
+      "/docs/claude/core/dev-workflow.md",
+      "/docs/claude/core/dev-roadmap.md"
+    ],
+    "implementationGuides": [
+      "/docs/claude/implementation/card-system.md",
+      "/docs/claude/implementation/firebase.md",
+      "/docs/claude/implementation/git-workflow.md",
+      "/docs/claude/implementation/scoring-system.md"
+    ],
+    "designGuides": [
+      "/docs/claude/design/design-system.md",
+      "/docs/claude/design/ui-components.md",
+      "/docs/claude/design/animation.md"
+    ],
+    "testingGuides": [
+      "/docs/claude/testing/tdd-approach.md",
+      "/docs/claude/testing/unit-testing.md",
+      "/docs/claude/testing/integration-testing.md"
+    ]
+  }
+}
