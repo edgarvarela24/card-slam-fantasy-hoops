@@ -1,5 +1,5 @@
 <!-- .claude/commands/fix-lint.md -->
-# Fix Lint Issues for Card Slam Fantasy Hoops
+# Fix Lint Issues
 
 Analyze and fix linting issues in $ARGUMENTS:
 

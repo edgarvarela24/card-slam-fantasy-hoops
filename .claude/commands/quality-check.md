@@ -1,5 +1,5 @@
 <!-- .claude/commands/quality-check.md -->
-# Quality Check for Card Slam Fantasy Hoops
+# Quality Check
 
 Run quality checks on $ARGUMENTS files (or the most recently modified files if no argument is provided).
 
